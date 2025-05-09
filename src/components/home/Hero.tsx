@@ -2,6 +2,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { BrainCircuit } from "lucide-react";
 
 export const Hero = () => {
   return (
@@ -31,7 +32,7 @@ export const Hero = () => {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="text-center">
                   <div className="animate-pulse rounded-full bg-purple-500/20 p-8 inline-flex">
-                    <BrainCircuitAnimation />
+                    <BrainCircuit size={64} className="text-purple-500" />
                   </div>
                   <p className="mt-4 text-sm text-muted-foreground">Visualización de IA generando imágenes</p>
                 </div>
@@ -41,33 +42,5 @@ export const Hero = () => {
         </div>
       </div>
     </div>
-  );
-};
-
-const BrainCircuitAnimation = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="64"
-      height="64"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className="text-purple-500"
-    >
-      <path d="M12 2a5 5 0 0 0-5 5v10a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5Z"></path>
-      <path d="M8 10V7a4 4 0 0 1 8 0v10a4 4 0 0 1-8 0v-3"></path>
-      <path d="M12 2v20"></path>
-      <path d="M8 7h8"></path>
-      <path d="M8 17h8"></path>
-      <path d="m2 22 3-3"></path>
-      <path d="M19 22c-.998-.499-1.497-.998-1.996-1.997"></path>
-      <path d="M2 17c.998.499 1.497.998 1.996 1.997"></path>
-      <path d="m19 17-3 3"></path>
-      <path d="m2 12 20 0"></path>
-    </svg>
   );
 };
