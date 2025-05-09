@@ -1,39 +1,39 @@
 
 import React from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Cpu, Globe, Lock, Zap, ServerIcon, Image } from "lucide-react";
+import { Box, Globe, Lock, Zap, Container, PackageCheck } from "lucide-react";
 
 export const Features = () => {
   const features = [
     {
       title: "Acceso Remoto",
-      description: "Accede a ComfyUI desde cualquier lugar a través de un navegador web.",
+      description: "Gestiona tus contenedores desde cualquier lugar a través de un navegador web.",
       icon: <Globe className="h-6 w-6 text-purple-500" />,
     },
     {
       title: "Alto Rendimiento",
-      description: "Aprovecha el poder de GPUs para generar imágenes con Stable Diffusion.",
-      icon: <Cpu className="h-6 w-6 text-purple-500" />,
+      description: "Optimiza el rendimiento de tus contenedores con orquestación inteligente.",
+      icon: <Zap className="h-6 w-6 text-purple-500" />,
     },
     {
       title: "Seguridad Avanzada",
-      description: "Autenticación segura con Google OAuth2 y tokens JWT.",
+      description: "Protege tus contenedores con autenticación segura y políticas de acceso.",
       icon: <Lock className="h-6 w-6 text-purple-500" />,
     },
     {
       title: "Escalabilidad",
-      description: "Arquitectura basada en contenedores que escala según tus necesidades.",
-      icon: <ServerIcon className="h-6 w-6 text-purple-500" />,
+      description: "Escala automáticamente tus contenedores según las necesidades de tu aplicación.",
+      icon: <Container className="h-6 w-6 text-purple-500" />,
     },
     {
-      title: "Rapidez",
-      description: "Interfaz optimizada para una experiencia fluida y sin retrasos.",
-      icon: <Zap className="h-6 w-6 text-purple-500" />,
+      title: "Despliegue Rápido",
+      description: "Implementa contenedores en segundos con nuestra plataforma optimizada.",
+      icon: <Box className="h-6 w-6 text-purple-500" />,
     },
     {
-      title: "Generación de Imágenes",
-      description: "Crea imágenes sorprendentes con modelos de inteligencia artificial.",
-      icon: <Image className="h-6 w-6 text-purple-500" />,
+      title: "Gestión Centralizada",
+      description: "Administra todos tus contenedores desde un único panel de control intuitivo.",
+      icon: <PackageCheck className="h-6 w-6 text-purple-500" />,
     },
   ];
 
@@ -45,7 +45,7 @@ export const Features = () => {
             Características Principales
           </h2>
           <p className="mt-4 text-lg text-muted-foreground">
-            NeuroPod ofrece una solución completa para ejecutar ComfyUI de forma remota.
+            NeuroPod ofrece una solución completa para gestionar contenedores de forma remota.
           </p>
         </div>
         <div className="mt-16 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

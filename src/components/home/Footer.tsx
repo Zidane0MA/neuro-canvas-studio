@@ -1,6 +1,6 @@
 
 import React from "react";
-import { BrainCircuit } from "lucide-react";
+import { Container } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
@@ -10,11 +10,11 @@ export const Footer = () => {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <BrainCircuit className="h-5 w-5 text-purple-500" />
+              <Container className="h-5 w-5 text-purple-500" />
               <span className="text-lg font-bold">NeuroPod</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Plataforma web escalable para ejecutar ComfyUI de forma remota.
+              Plataforma web escalable para gestionar contenedores de forma remota.
             </p>
           </div>
           <div>
