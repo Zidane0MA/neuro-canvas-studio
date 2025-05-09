@@ -2,8 +2,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Link } from "react-router-dom";
 import { BrainCircuit } from "lucide-react";
 
@@ -17,45 +15,10 @@ const Signup = () => {
           </div>
           <CardTitle className="text-2xl text-center">Crear Cuenta</CardTitle>
           <CardDescription className="text-center">
-            Ingresa tus datos para crear una cuenta en NeuroPod
+            Regístrate con tu cuenta de Google para comenzar a usar NeuroPod
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="firstname">Nombre</Label>
-              <Input id="firstname" type="text" />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="lastname">Apellido</Label>
-              <Input id="lastname" type="text" />
-            </div>
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="tu@email.com" />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="password">Contraseña</Label>
-            <Input id="password" type="password" />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="confirm-password">Confirmar Contraseña</Label>
-            <Input id="confirm-password" type="password" />
-          </div>
-          <div>
-            <Button className="w-full" size="lg">
-              Crear Cuenta
-            </Button>
-          </div>
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-border" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-card px-2 text-muted-foreground">o</span>
-            </div>
-          </div>
           <Button variant="outline" size="lg" className="flex gap-2 items-center">
             <svg width="18" height="18" viewBox="0 0 24 24">
               <path
