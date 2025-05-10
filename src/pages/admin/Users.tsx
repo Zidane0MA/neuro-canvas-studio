@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Eye, UserX, Trash2, Search, FilterX } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface User {
   id: string;
@@ -54,6 +55,7 @@ const AdminUsers = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const [dialogType, setDialogType] = useState<'detail' | 'suspend' | 'delete' | null>(null);
   const [visibleUsers, setVisibleUsers] = useState(USERS_PER_PAGE);
+  const isMobile = useIsMobile();
 
   const handleSearch = () => {
     let filtered = mockUsers;
@@ -108,7 +110,7 @@ const AdminUsers = () => {
   };
 
   return (
-    <DashboardLayout title="Usuarios">
+    <DashboardLayout>
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Usuarios</h1>
         <p className="text-muted-foreground">Gestiona los usuarios del sistema</p>
@@ -126,7 +128,7 @@ const AdminUsers = () => {
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button variant={filterActivePods ? "default" : "outline"} onClick={() => {
               setFilterActivePods(!filterActivePods);
               handleSearch();
@@ -150,49 +152,51 @@ const AdminUsers = () => {
         </div>
       </div>
 
-      <div className="rounded-lg border shadow-sm">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Email</TableHead>
-              <TableHead>Nombre</TableHead>
-              <TableHead>Registro</TableHead>
-              <TableHead>Pods</TableHead>
-              <TableHead>Saldo</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead className="text-right">Acciones</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {users.slice(0, visibleUsers).map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.email}</TableCell>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{user.registrationDate}</TableCell>
-                <TableCell>{user.activePods}/{user.totalPods}</TableCell>
-                <TableCell>{user.balance.toFixed(2)} €</TableCell>
-                <TableCell>
-                  <Badge variant={user.status === 'online' ? 'default' : 'secondary'}>
-                    {user.status === 'online' ? 'Online' : 'Offline'}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="icon" onClick={() => openUserDetail(user)}>
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" onClick={() => openSuspendDialog(user)}>
-                      <UserX className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" onClick={() => openDeleteDialog(user)}>
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </TableCell>
+      <div className="rounded-lg border shadow-sm overflow-hidden">
+        <div className="w-full overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className={isMobile ? "w-[180px]" : ""}>Email</TableHead>
+                <TableHead>Nombre</TableHead>
+                {!isMobile && <TableHead>Registro</TableHead>}
+                <TableHead>Pods</TableHead>
+                {!isMobile && <TableHead>Saldo</TableHead>}
+                <TableHead>Estado</TableHead>
+                <TableHead className="text-right">Acciones</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {users.slice(0, visibleUsers).map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell className="max-w-[180px] truncate">{user.email}</TableCell>
+                  <TableCell>{user.name}</TableCell>
+                  {!isMobile && <TableCell>{user.registrationDate}</TableCell>}
+                  <TableCell>{user.activePods}/{user.totalPods}</TableCell>
+                  {!isMobile && <TableCell>{user.balance.toFixed(2)} €</TableCell>}
+                  <TableCell>
+                    <Badge variant={user.status === 'online' ? 'default' : 'secondary'}>
+                      {user.status === 'online' ? 'Online' : 'Offline'}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex justify-end gap-2">
+                      <Button variant="ghost" size="icon" onClick={() => openUserDetail(user)}>
+                        <Eye className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon" onClick={() => openSuspendDialog(user)}>
+                        <UserX className="h-4 w-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon" onClick={() => openDeleteDialog(user)}>
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
         
         {visibleUsers < users.length && (
           <div className="flex justify-center p-4 border-t">
@@ -209,17 +213,17 @@ const AdminUsers = () => {
           </DialogHeader>
           {selectedUser && (
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="text-sm font-medium text-muted-foreground">Email</div>
-                  <div>{selectedUser.email}</div>
+                  <div className="break-words">{selectedUser.email}</div>
                 </div>
                 <div>
                   <div className="text-sm font-medium text-muted-foreground">Nombre</div>
                   <div>{selectedUser.name}</div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="text-sm font-medium text-muted-foreground">Fecha de Registro</div>
                   <div>{selectedUser.registrationDate}</div>
@@ -229,7 +233,7 @@ const AdminUsers = () => {
                   <div>{selectedUser.activePods}/{selectedUser.totalPods}</div>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <div className="text-sm font-medium text-muted-foreground">Saldo</div>
                   <div>{selectedUser.balance.toFixed(2)} €</div>
@@ -261,7 +265,7 @@ const AdminUsers = () => {
               <p><strong>Email:</strong> {selectedUser.email}</p>
             </div>
           )}
-          <DialogFooter>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
             <Button variant="outline" onClick={closeDialog}>Cancelar</Button>
             <Button variant="destructive" onClick={closeDialog}>Suspender Usuario</Button>
           </DialogFooter>
@@ -283,7 +287,7 @@ const AdminUsers = () => {
               <p><strong>Email:</strong> {selectedUser.email}</p>
             </div>
           )}
-          <DialogFooter>
+          <DialogFooter className="flex-col sm:flex-row gap-2">
             <Button variant="outline" onClick={closeDialog}>Cancelar</Button>
             <Button variant="destructive" onClick={closeDialog}>Eliminar Usuario</Button>
           </DialogFooter>
