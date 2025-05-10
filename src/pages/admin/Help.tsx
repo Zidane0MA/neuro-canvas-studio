@@ -145,7 +145,7 @@ const AdminHelp = () => {
               <AccordionContent>
                 <p>Para crear plantillas personalizadas:</p>
                 <ol className="list-decimal pl-4 space-y-2">
-                  <li>Ve a la sección de Configuración > Plantillas.</li>
+                  <li>Ve a la sección de Configuración {'>'}  Plantillas.</li>
                   <li>Haz clic en "Crear" para iniciar el proceso de creación de una nueva plantilla.</li>
                   <li>Define la imagen base y los paquetes que deseas preinstalar.</li>
                   <li>Configura los puertos por defecto y otras configuraciones específicas.</li>
@@ -161,7 +161,7 @@ const AdminHelp = () => {
                 <ul className="list-disc pl-4 space-y-2">
                   <li>Los usuarios pagan por el tiempo de uso de los recursos (por hora).</li>
                   <li>Los costos incluyen: uso de GPU, almacenamiento temporal (Container Disk) y almacenamiento persistente (Volume Disk).</li>
-                  <li>Los precios pueden configurarse en la sección de Configuración > Precios y Cuotas.</li>
+                  <li>Los precios pueden configurarse en la sección de Configuración {'>'}  Precios y Cuotas.</li>
                   <li>Los administradores tienen saldo ilimitado para pruebas y desarrollo.</li>
                   <li>Los informes de facturación están disponibles en la sección de Dashboard para revisión.</li>
                 </ul>
