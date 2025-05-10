@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -156,40 +157,13 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, titl
         </div>
       </div>
       <div className="flex-1 flex flex-col md:ml-64">
-        <header className="border-b border-border bg-card sticky top-0 z-10 flex h-16 items-center justify-between px-6">
-          <h1 className="text-xl font-semibold">{title}</h1>
-          <div className="flex items-center gap-4">
-            <div className="hidden md:block">
-              <div className="flex items-center space-x-4">
-                <span className="font-medium">{user?.name}</span>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="h-8 w-8">
-                      <ChevronDown className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => logout()}>
-                      <LogOut className="mr-2 h-4 w-4" />
-                      Cerrar Sesión
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
-            </div>
-            <div className="hidden md:block border-l border-border pl-4">
-              <div className="text-sm text-muted-foreground">Saldo</div>
-              <div className="font-semibold">
-                {typeof user?.balance === 'number' && user.balance === Infinity 
-                  ? '∞ €' 
-                  : `${user?.balance?.toFixed(2) || 0} €`
-                }
-              </div>
-            </div>
-          </div>
-        </header>
         <main className="flex-1 overflow-auto p-6">
-          <div className="container">{children}</div>
+          <div className="container">
+            <div className="mb-6">
+              <h1 className="text-3xl font-bold">{title}</h1>
+            </div>
+            {children}
+          </div>
         </main>
       </div>
     </div>
