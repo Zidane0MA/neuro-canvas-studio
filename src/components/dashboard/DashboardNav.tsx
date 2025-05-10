@@ -1,7 +1,7 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import { BrainCircuit, Home, Server, Image, Settings, Users, Database, Activity } from "lucide-react";
+import { Container, Home, Server, Image, Settings, Users, Database, Activity } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -46,10 +46,10 @@ export const DashboardNav = () => {
   ];
 
   return (
-    <div className="hidden md:flex flex-col w-64 border-r border-border bg-card h-screen">
+    <div className="hidden md:flex flex-col w-64 border-r border-border bg-card h-screen fixed">
       <div className="p-4 border-b border-border">
         <Link to="/" className="flex items-center gap-2">
-          <BrainCircuit className="h-5 w-5 text-purple-500" />
+          <Container className="h-5 w-5 text-purple-500" />
           <span className="font-bold text-xl">NeuroPod</span>
         </Link>
       </div>

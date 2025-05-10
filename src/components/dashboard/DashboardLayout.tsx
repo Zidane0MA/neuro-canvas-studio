@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
-import { BrainCircuit, Home, Server, ChevronDown, Settings, Users, HelpCircle, LogOut, Database, Activity, AreaChart } from "lucide-react";
+import { Container, Home, Server, ChevronDown, Settings, Users, HelpCircle, LogOut, Database, Activity, AreaChart } from "lucide-react";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -99,10 +99,10 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, titl
 
   return (
     <div className="min-h-screen flex">
-      <div className="hidden md:flex flex-col w-64 border-r border-border bg-card h-screen">
+      <div className="hidden md:flex flex-col w-64 border-r border-border bg-card fixed h-full">
         <div className="p-4 border-b border-border">
           <Link to="/" className="flex items-center gap-2">
-            <BrainCircuit className="h-5 w-5 text-purple-500" />
+            <Container className="h-5 w-5 text-purple-500" />
             <span className="font-bold text-xl">NeuroPod</span>
           </Link>
         </div>
@@ -156,8 +156,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, titl
           </div>
         </div>
       </div>
-      <div className="flex-1 flex flex-col">
-        <header className="border-b border-border bg-card">
+      <div className="flex-1 flex flex-col md:ml-64">
+        <header className="border-b border-border bg-card sticky top-0 z-10">
           <div className="container flex h-16 items-center justify-between">
             <h1 className="text-xl font-semibold">{title}</h1>
             <div className="flex items-center gap-4">
