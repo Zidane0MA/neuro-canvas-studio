@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -159,9 +158,6 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, titl
       <div className="flex-1 flex flex-col md:ml-64">
         <main className="flex-1 overflow-auto p-6">
           <div className="container">
-            <div className="mb-6">
-              <h1 className="text-3xl font-bold">{title}</h1>
-            </div>
             {children}
           </div>
         </main>
