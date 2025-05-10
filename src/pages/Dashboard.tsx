@@ -5,7 +5,7 @@ import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { Activity, BarChart3, Cpu, Server, Users, DollarSign, Terminal } from "lucide-react";
+import { Activity, BarChart3, Cpu, Server, Users, DollarSign, Terminal, Settings, HelpCircle } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 
 const Dashboard = () => {
