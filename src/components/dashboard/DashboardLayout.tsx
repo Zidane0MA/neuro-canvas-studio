@@ -182,7 +182,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, titl
 
       {/* Mobile sidebar */}
       <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
-        <SheetTrigger asChild className="md:hidden absolute top-4 left-4 z-20">
+        <SheetTrigger asChild className="md:hidden fixed top-4 left-4 z-50">
           <Button variant="outline" size="icon">
             <Menu className="h-5 w-5" />
           </Button>

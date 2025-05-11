@@ -34,31 +34,35 @@ const AdminSettings = () => {
         <p className="text-muted-foreground">Gestiona la configuración del sistema</p>
       </div>
       
-      <Tabs defaultValue="profile">
-        <ScrollArea className="w-full mb-6">
-          <TabsList className={`grid w-full ${isMobile ? 'grid-cols-2 md:grid-cols-5' : 'grid-cols-5'}`}>
-            <TabsTrigger value="profile" className="flex gap-2 items-center">
-              <User className="h-4 w-4" />
-              Perfil
-            </TabsTrigger>
-            <TabsTrigger value="system" className="flex gap-2 items-center">
-              <ServerCog className="h-4 w-4" />
-              Sistema
-            </TabsTrigger>
-            <TabsTrigger value="templates" className="flex gap-2 items-center">
-              <FileBox className="h-4 w-4" />
-              Plantillas
-            </TabsTrigger>
-            <TabsTrigger value="pricing" className="flex gap-2 items-center">
-              <DollarSign className="h-4 w-4" />
-              Precios
-            </TabsTrigger>
-            <TabsTrigger value="logs" className="flex gap-2 items-center">
-              <HardDrive className="h-4 w-4" />
-              Logs
-            </TabsTrigger>
-          </TabsList>
-        </ScrollArea>
+      <Tabs defaultValue="profile" className="w-full">
+        <div className="border rounded-md mb-6 p-1 bg-muted">
+          <ScrollArea className="w-full" orientation="horizontal">
+            <div className="min-w-max flex">
+              <TabsList className="inline-flex bg-transparent w-auto">
+                <TabsTrigger value="profile" className="flex gap-2 items-center">
+                  <User className="h-4 w-4" />
+                  Perfil
+                </TabsTrigger>
+                <TabsTrigger value="system" className="flex gap-2 items-center">
+                  <ServerCog className="h-4 w-4" />
+                  Sistema
+                </TabsTrigger>
+                <TabsTrigger value="templates" className="flex gap-2 items-center">
+                  <FileBox className="h-4 w-4" />
+                  Plantillas
+                </TabsTrigger>
+                <TabsTrigger value="pricing" className="flex gap-2 items-center">
+                  <DollarSign className="h-4 w-4" />
+                  Precios
+                </TabsTrigger>
+                <TabsTrigger value="logs" className="flex gap-2 items-center">
+                  <HardDrive className="h-4 w-4" />
+                  Logs
+                </TabsTrigger>
+              </TabsList>
+            </div>
+          </ScrollArea>
+        </div>
         
         <TabsContent value="profile" className="space-y-6">
           <Card>
