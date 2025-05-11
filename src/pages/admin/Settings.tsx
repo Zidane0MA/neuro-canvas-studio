@@ -37,8 +37,8 @@ const AdminSettings = () => {
       <Tabs defaultValue="profile" className="w-full">
         <div className="border rounded-md mb-6 p-1 bg-muted">
           <ScrollArea className="w-full" orientation="horizontal">
-            <div className="min-w-max flex">
-              <TabsList className="inline-flex bg-transparent w-auto">
+            <div className="flex justify-center w-full">
+              <TabsList className="bg-transparent w-full flex justify-center">
                 <TabsTrigger value="profile" className="flex gap-2 items-center">
                   <User className="h-4 w-4" />
                   Perfil
