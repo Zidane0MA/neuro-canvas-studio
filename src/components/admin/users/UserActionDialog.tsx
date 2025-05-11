@@ -32,7 +32,7 @@ export const UserActionDialog = ({
 }: UserActionDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
@@ -45,9 +45,9 @@ export const UserActionDialog = ({
             <p><strong>Email:</strong> {user.email}</p>
           </div>
         )}
-        <DialogFooter className="flex-col sm:flex-row gap-2">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>Cancelar</Button>
-          <Button variant="destructive" onClick={onAction}>{actionLabel}</Button>
+        <DialogFooter className="flex flex-col sm:flex-row gap-2">
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="w-full sm:w-auto">Cancelar</Button>
+          <Button variant="destructive" onClick={onAction} className="w-full sm:w-auto">{actionLabel}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

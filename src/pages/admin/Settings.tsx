@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   User, 
   Settings as SettingsIcon, 
@@ -20,9 +21,11 @@ import {
   Download 
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const AdminSettings = () => {
   const { user } = useAuth();
+  const isMobile = useIsMobile();
   
   return (
     <DashboardLayout title="Configuración">
@@ -32,28 +35,30 @@ const AdminSettings = () => {
       </div>
       
       <Tabs defaultValue="profile">
-        <TabsList className="grid grid-cols-2 md:grid-cols-5 mb-6">
-          <TabsTrigger value="profile" className="flex gap-2 items-center">
-            <User className="h-4 w-4" />
-            Perfil
-          </TabsTrigger>
-          <TabsTrigger value="system" className="flex gap-2 items-center">
-            <ServerCog className="h-4 w-4" />
-            Sistema
-          </TabsTrigger>
-          <TabsTrigger value="templates" className="flex gap-2 items-center">
-            <FileBox className="h-4 w-4" />
-            Plantillas
-          </TabsTrigger>
-          <TabsTrigger value="pricing" className="flex gap-2 items-center">
-            <DollarSign className="h-4 w-4" />
-            Precios
-          </TabsTrigger>
-          <TabsTrigger value="logs" className="flex gap-2 items-center">
-            <HardDrive className="h-4 w-4" />
-            Logs y Backups
-          </TabsTrigger>
-        </TabsList>
+        <ScrollArea className="w-full mb-6">
+          <TabsList className={`grid w-full ${isMobile ? 'grid-cols-2 md:grid-cols-5' : 'grid-cols-5'}`}>
+            <TabsTrigger value="profile" className="flex gap-2 items-center">
+              <User className="h-4 w-4" />
+              Perfil
+            </TabsTrigger>
+            <TabsTrigger value="system" className="flex gap-2 items-center">
+              <ServerCog className="h-4 w-4" />
+              Sistema
+            </TabsTrigger>
+            <TabsTrigger value="templates" className="flex gap-2 items-center">
+              <FileBox className="h-4 w-4" />
+              Plantillas
+            </TabsTrigger>
+            <TabsTrigger value="pricing" className="flex gap-2 items-center">
+              <DollarSign className="h-4 w-4" />
+              Precios
+            </TabsTrigger>
+            <TabsTrigger value="logs" className="flex gap-2 items-center">
+              <HardDrive className="h-4 w-4" />
+              Logs
+            </TabsTrigger>
+          </TabsList>
+        </ScrollArea>
         
         <TabsContent value="profile" className="space-y-6">
           <Card>
