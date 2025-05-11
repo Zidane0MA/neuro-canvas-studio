@@ -29,16 +29,16 @@ const AdminSettings = () => {
   
   return (
     <DashboardLayout title="Configuración">
-      <div className="mb-8">
+      <div className="mb-6">
         <h1 className="text-3xl font-bold mb-2">Configuración</h1>
         <p className="text-muted-foreground">Gestiona la configuración del sistema</p>
       </div>
       
       <Tabs defaultValue="profile" className="w-full">
-        <div className="border rounded-md mb-6 p-1 bg-muted">
+        <div className="border rounded-md mb-4 p-1 bg-muted">
           <ScrollArea className="w-full" orientation="horizontal">
-            <div className="flex justify-center w-full">
-              <TabsList className="bg-transparent w-full flex justify-center">
+            <div className="flex w-full">
+              <TabsList className="bg-transparent w-full flex justify-center md:justify-start">
                 <TabsTrigger value="profile" className="flex gap-2 items-center">
                   <User className="h-4 w-4" />
                   Perfil
@@ -64,14 +64,14 @@ const AdminSettings = () => {
           </ScrollArea>
         </div>
         
-        <TabsContent value="profile" className="space-y-6">
+        <TabsContent value="profile" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle>Perfil de Administrador</CardTitle>
               <CardDescription>Gestiona tu información de perfil</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Nombre</Label>
                   <Input id="name" value={user?.name || ""} />
@@ -83,19 +83,19 @@ const AdminSettings = () => {
               </div>
               
               <div className="border-t pt-4">
-                <Button className="flex gap-2 items-center">
+                <Button size="sm" className="flex gap-2 items-center bg-purple-600 hover:bg-purple-700">
                   <Save className="h-4 w-4" />
                   Guardar Cambios
                 </Button>
               </div>
               
-              <div className="border-t pt-6">
-                <h3 className="font-semibold text-lg mb-4">Acciones del Perfil</h3>
-                <div className="flex flex-col gap-4">
-                  <Button variant="outline" className="justify-start">
+              <div className="border-t pt-4">
+                <h3 className="font-semibold text-lg mb-3">Acciones del Perfil</h3>
+                <div className="flex flex-col gap-3">
+                  <Button variant="outline" size="sm" className="justify-start w-full md:w-auto">
                     Eliminar todos los pods
                   </Button>
-                  <Button variant="destructive" className="justify-start">
+                  <Button variant="destructive" size="sm" className="justify-start w-full md:w-auto">
                     Eliminar cuenta
                   </Button>
                 </div>
@@ -104,41 +104,41 @@ const AdminSettings = () => {
           </Card>
         </TabsContent>
         
-        <TabsContent value="system" className="space-y-6">
+        <TabsContent value="system" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle>Configuración del Sistema</CardTitle>
               <CardDescription>Gestiona la configuración general del sistema</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="auto-shutdown">Auto-apagado de pods inactivos</Label>
-                      <p className="text-sm text-muted-foreground">Apaga automáticamente los pods inactivos</p>
+                      <p className="text-xs text-muted-foreground">Apaga automáticamente los pods inactivos</p>
                     </div>
                     <Switch id="auto-shutdown" defaultChecked />
                   </div>
                   
                   <div className="pt-2">
-                    <Label>Tiempo de inactividad (minutos)</Label>
-                    <div className="flex justify-between mt-1 mb-2">
-                      <span className="text-sm">30 min</span>
-                      <span className="text-sm">240 min</span>
+                    <Label className="text-sm">Tiempo de inactividad (minutos)</Label>
+                    <div className="flex justify-between mt-1 mb-1">
+                      <span className="text-xs">30 min</span>
+                      <span className="text-xs">240 min</span>
                     </div>
                     <Slider defaultValue={[120]} min={30} max={240} step={30} />
                     <div className="text-center mt-1">
-                      <span className="text-sm font-medium">120 minutos</span>
+                      <span className="text-xs font-medium">120 minutos</span>
                     </div>
                   </div>
                 </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div className="space-y-0.5">
                       <Label htmlFor="notifications">Notificaciones</Label>
-                      <p className="text-sm text-muted-foreground">Envía notificaciones por email</p>
+                      <p className="text-xs text-muted-foreground">Envía notificaciones por email</p>
                     </div>
                     <Switch id="notifications" defaultChecked />
                   </div>
@@ -146,7 +146,7 @@ const AdminSettings = () => {
                   <div className="flex items-center justify-between pt-2">
                     <div className="space-y-0.5">
                       <Label htmlFor="maintenance">Modo mantenimiento</Label>
-                      <p className="text-sm text-muted-foreground">Activa el modo de mantenimiento</p>
+                      <p className="text-xs text-muted-foreground">Activa el modo de mantenimiento</p>
                     </div>
                     <Switch id="maintenance" />
                   </div>
@@ -154,7 +154,7 @@ const AdminSettings = () => {
               </div>
               
               <div className="border-t pt-4">
-                <Button className="flex gap-2 items-center">
+                <Button size="sm" className="flex gap-2 items-center bg-purple-600 hover:bg-purple-700">
                   <Save className="h-4 w-4" />
                   Guardar Configuración
                 </Button>
@@ -163,26 +163,26 @@ const AdminSettings = () => {
           </Card>
         </TabsContent>
         
-        <TabsContent value="templates" className="space-y-6">
+        <TabsContent value="templates" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle>Gestión de Plantillas</CardTitle>
               <CardDescription>Configura las plantillas disponibles para los pods</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                <div className="flex justify-between items-center border-b pb-4">
+            <CardContent className="space-y-3">
+              <div className="space-y-3">
+                <div className="flex justify-between items-center border-b pb-3">
                   <div>
                     <h3 className="font-medium">Ubuntu</h3>
-                    <p className="text-sm text-muted-foreground">Ubuntu 22.04 con soporte para CUDA</p>
+                    <p className="text-xs text-muted-foreground">Ubuntu 22.04 con soporte para CUDA</p>
                   </div>
                   <Button variant="outline" size="sm">Editar</Button>
                 </div>
                 
-                <div className="flex justify-between items-center border-b pb-4">
+                <div className="flex justify-between items-center border-b pb-3">
                   <div>
                     <h3 className="font-medium">ComfyUI</h3>
-                    <p className="text-sm text-muted-foreground">ComfyUI con dependencias preinstaladas</p>
+                    <p className="text-xs text-muted-foreground">ComfyUI con dependencias preinstaladas</p>
                   </div>
                   <Button variant="outline" size="sm">Editar</Button>
                 </div>
@@ -190,7 +190,7 @@ const AdminSettings = () => {
                 <div className="flex justify-between items-center">
                   <div>
                     <h3 className="font-medium">Crear Nueva Plantilla</h3>
-                    <p className="text-sm text-muted-foreground">Configura una nueva plantilla</p>
+                    <p className="text-xs text-muted-foreground">Configura una nueva plantilla</p>
                   </div>
                   <Button size="sm">Crear</Button>
                 </div>
@@ -199,65 +199,65 @@ const AdminSettings = () => {
           </Card>
         </TabsContent>
         
-        <TabsContent value="pricing" className="space-y-6">
+        <TabsContent value="pricing" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle>Precios y Cuotas</CardTitle>
               <CardDescription>Configura los precios y límites del sistema</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <h3 className="font-medium">Precios GPU</h3>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <h3 className="font-medium text-sm">Precios GPU</h3>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="rtx-4050-price">NVIDIA RTX 4050</Label>
+                    <Label htmlFor="rtx-4050-price" className="text-sm">NVIDIA RTX 4050</Label>
                     <div className="flex items-center">
-                      <Input id="rtx-4050-price" type="number" defaultValue="2.50" className="max-w-[120px]" />
-                      <span className="ml-2">€/hora</span>
+                      <Input id="rtx-4050-price" type="number" defaultValue="2.50" className="max-w-[100px]" />
+                      <span className="ml-2 text-sm">€/hora</span>
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="rtx-4080-price">NVIDIA RTX 4080</Label>
+                    <Label htmlFor="rtx-4080-price" className="text-sm">NVIDIA RTX 4080</Label>
                     <div className="flex items-center">
-                      <Input id="rtx-4080-price" type="number" defaultValue="4.99" className="max-w-[120px]" />
-                      <span className="ml-2">€/hora</span>
+                      <Input id="rtx-4080-price" type="number" defaultValue="4.99" className="max-w-[100px]" />
+                      <span className="ml-2 text-sm">€/hora</span>
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="rtx-4090-price">NVIDIA RTX 4090</Label>
+                    <Label htmlFor="rtx-4090-price" className="text-sm">NVIDIA RTX 4090</Label>
                     <div className="flex items-center">
-                      <Input id="rtx-4090-price" type="number" defaultValue="8.99" className="max-w-[120px]" />
-                      <span className="ml-2">€/hora</span>
+                      <Input id="rtx-4090-price" type="number" defaultValue="8.99" className="max-w-[100px]" />
+                      <span className="ml-2 text-sm">€/hora</span>
                     </div>
                   </div>
                 </div>
                 
-                <div className="space-y-4">
-                  <h3 className="font-medium">Precios Almacenamiento</h3>
+                <div className="space-y-3">
+                  <h3 className="font-medium text-sm">Precios Almacenamiento</h3>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="container-disk-price">Container Disk</Label>
+                    <Label htmlFor="container-disk-price" className="text-sm">Container Disk</Label>
                     <div className="flex items-center">
-                      <Input id="container-disk-price" type="number" defaultValue="0.05" className="max-w-[120px]" />
-                      <span className="ml-2">€/GB/hora</span>
+                      <Input id="container-disk-price" type="number" defaultValue="0.05" className="max-w-[100px]" />
+                      <span className="ml-2 text-sm">€/GB/hora</span>
                     </div>
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="volume-disk-price">Volume Disk</Label>
+                    <Label htmlFor="volume-disk-price" className="text-sm">Volume Disk</Label>
                     <div className="flex items-center">
-                      <Input id="volume-disk-price" type="number" defaultValue="0.10" className="max-w-[120px]" />
-                      <span className="ml-2">€/GB/hora</span>
+                      <Input id="volume-disk-price" type="number" defaultValue="0.10" className="max-w-[100px]" />
+                      <span className="ml-2 text-sm">€/GB/hora</span>
                     </div>
                   </div>
                   
-                  <div className="flex items-center justify-between pt-4">
+                  <div className="flex items-center justify-between pt-3">
                     <div className="space-y-0.5">
-                      <Label htmlFor="free-tier">Free Tier</Label>
-                      <p className="text-sm text-muted-foreground">Habilita el nivel gratuito</p>
+                      <Label htmlFor="free-tier" className="text-sm">Free Tier</Label>
+                      <p className="text-xs text-muted-foreground">Habilita el nivel gratuito</p>
                     </div>
                     <Switch id="free-tier" defaultChecked />
                   </div>
@@ -265,7 +265,7 @@ const AdminSettings = () => {
               </div>
               
               <div className="border-t pt-4">
-                <Button className="flex gap-2 items-center">
+                <Button size="sm" className="flex gap-2 items-center bg-purple-600 hover:bg-purple-700">
                   <Save className="h-4 w-4" />
                   Guardar Precios
                 </Button>
@@ -274,17 +274,17 @@ const AdminSettings = () => {
           </Card>
         </TabsContent>
         
-        <TabsContent value="logs" className="space-y-6">
+        <TabsContent value="logs" className="space-y-4">
           <Card>
-            <CardHeader>
+            <CardHeader className="pb-3">
               <CardTitle>Logs y Backups</CardTitle>
               <CardDescription>Gestiona los logs y backups del sistema</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-4">
-                <h3 className="font-medium">Logs del Sistema</h3>
+            <CardContent className="space-y-4">
+              <div className="space-y-3">
+                <h3 className="font-medium text-sm">Logs del Sistema</h3>
                 <Textarea 
-                  className="font-mono h-[200px] resize-none bg-black text-white"
+                  className="font-mono h-[160px] resize-none bg-black text-white text-xs"
                   readOnly
                   value={`[2023-05-09 10:15:32] INFO: Sistema iniciado correctamente
 [2023-05-09 10:15:35] INFO: Conectados a la base de datos
@@ -294,34 +294,34 @@ const AdminSettings = () => {
 [2023-05-09 11:02:18] INFO: Usuario usuario2@example.com ha iniciado sesión
 [2023-05-09 11:15:32] ERROR: Error al conectar con la GPU en el Pod-15`}
                 />
-                <Button variant="outline" className="flex gap-2 items-center">
+                <Button variant="outline" size="sm" className="flex gap-2 items-center">
                   <Download className="h-4 w-4" />
                   Descargar Logs
                 </Button>
               </div>
               
-              <div className="border-t pt-6 space-y-4">
-                <h3 className="font-medium">Backups</h3>
+              <div className="border-t pt-4 space-y-3">
+                <h3 className="font-medium text-sm">Backups</h3>
                 
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <span>Último backup: 09/05/2023 04:00</span>
-                    <Button variant="outline" className="flex gap-2 items-center" size="sm">
+                    <span className="text-sm">Último backup: 09/05/2023 04:00</span>
+                    <Button variant="outline" size="sm" className="flex gap-2 items-center">
                       <Download className="h-4 w-4" />
                       Descargar
                     </Button>
                   </div>
                   
                   <div className="flex justify-between items-center">
-                    <span>Backup manual</span>
+                    <span className="text-sm">Backup manual</span>
                     <Button size="sm">Crear Backup</Button>
                   </div>
                 </div>
                 
-                <div className="flex items-center justify-between pt-4">
+                <div className="flex items-center justify-between pt-3">
                   <div className="space-y-0.5">
-                    <Label htmlFor="auto-backup">Backups automáticos</Label>
-                    <p className="text-sm text-muted-foreground">Realiza backups automáticos diarios</p>
+                    <Label htmlFor="auto-backup" className="text-sm">Backups automáticos</Label>
+                    <p className="text-xs text-muted-foreground">Realiza backups automáticos diarios</p>
                   </div>
                   <Switch id="auto-backup" defaultChecked />
                 </div>
