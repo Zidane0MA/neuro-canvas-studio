@@ -1,4 +1,3 @@
-
 import React from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,34 +28,34 @@ const AdminSettings = () => {
   
   return (
     <DashboardLayout title="Configuración">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold mb-2">Configuración</h1>
-        <p className="text-muted-foreground">Gestiona la configuración del sistema</p>
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold mb-1">Configuración</h1>
+        <p className="text-sm text-muted-foreground">Gestiona la configuración del sistema</p>
       </div>
       
       <Tabs defaultValue="profile" className="w-full">
-        <div className="border rounded-md mb-4 p-1 bg-muted">
+        <div className="border rounded-md mb-3 p-1 bg-muted">
           <ScrollArea className="w-full" orientation="horizontal">
-            <div className="flex w-full">
-              <TabsList className="bg-transparent w-full flex justify-center md:justify-start">
-                <TabsTrigger value="profile" className="flex gap-2 items-center">
-                  <User className="h-4 w-4" />
+            <div className="flex w-full justify-center">
+              <TabsList className="bg-transparent">
+                <TabsTrigger value="profile" className="flex gap-1 items-center text-xs">
+                  <User className="h-3.5 w-3.5" />
                   Perfil
                 </TabsTrigger>
-                <TabsTrigger value="system" className="flex gap-2 items-center">
-                  <ServerCog className="h-4 w-4" />
+                <TabsTrigger value="system" className="flex gap-1 items-center text-xs">
+                  <ServerCog className="h-3.5 w-3.5" />
                   Sistema
                 </TabsTrigger>
-                <TabsTrigger value="templates" className="flex gap-2 items-center">
-                  <FileBox className="h-4 w-4" />
+                <TabsTrigger value="templates" className="flex gap-1 items-center text-xs">
+                  <FileBox className="h-3.5 w-3.5" />
                   Plantillas
                 </TabsTrigger>
-                <TabsTrigger value="pricing" className="flex gap-2 items-center">
-                  <DollarSign className="h-4 w-4" />
+                <TabsTrigger value="pricing" className="flex gap-1 items-center text-xs">
+                  <DollarSign className="h-3.5 w-3.5" />
                   Precios
                 </TabsTrigger>
-                <TabsTrigger value="logs" className="flex gap-2 items-center">
-                  <HardDrive className="h-4 w-4" />
+                <TabsTrigger value="logs" className="flex gap-1 items-center text-xs">
+                  <HardDrive className="h-3.5 w-3.5" />
                   Logs
                 </TabsTrigger>
               </TabsList>
@@ -64,38 +63,38 @@ const AdminSettings = () => {
           </ScrollArea>
         </div>
         
-        <TabsContent value="profile" className="space-y-4">
-          <Card>
-            <CardHeader className="pb-3">
-              <CardTitle>Perfil de Administrador</CardTitle>
-              <CardDescription>Gestiona tu información de perfil</CardDescription>
+        <TabsContent value="profile" className="space-y-3">
+          <Card className="overflow-hidden">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-base">Perfil de Administrador</CardTitle>
+              <CardDescription className="text-xs">Gestiona tu información de perfil</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Nombre</Label>
-                  <Input id="name" value={user?.name || ""} />
+            <CardContent className="space-y-3 text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div className="space-y-1.5">
+                  <Label htmlFor="name" className="text-xs">Nombre</Label>
+                  <Input id="name" value={user?.name || ""} className="h-8 text-xs" />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input id="email" value={user?.email || ""} disabled />
+                <div className="space-y-1.5">
+                  <Label htmlFor="email" className="text-xs">Email</Label>
+                  <Input id="email" value={user?.email || ""} disabled className="h-8 text-xs" />
                 </div>
               </div>
               
-              <div className="border-t pt-4">
-                <Button size="sm" className="flex gap-2 items-center bg-purple-600 hover:bg-purple-700">
-                  <Save className="h-4 w-4" />
+              <div className="border-t pt-3">
+                <Button size="sm" className="flex gap-1.5 items-center bg-purple-600 hover:bg-purple-700 h-8 text-xs">
+                  <Save className="h-3.5 w-3.5" />
                   Guardar Cambios
                 </Button>
               </div>
               
-              <div className="border-t pt-4">
-                <h3 className="font-semibold text-lg mb-3">Acciones del Perfil</h3>
-                <div className="flex flex-col gap-3">
-                  <Button variant="outline" size="sm" className="justify-start w-full md:w-auto">
+              <div className="border-t pt-3">
+                <h3 className="font-semibold text-sm mb-2">Acciones del Perfil</h3>
+                <div className="flex justify-end gap-2">
+                  <Button variant="outline" size="sm" className="text-xs">
                     Eliminar todos los pods
                   </Button>
-                  <Button variant="destructive" size="sm" className="justify-start w-full md:w-auto">
+                  <Button variant="destructive" size="sm" className="flex gap-1.5 items-center text-xs">
                     Eliminar cuenta
                   </Button>
                 </div>
