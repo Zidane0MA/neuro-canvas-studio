@@ -13,6 +13,8 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } fr
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { createNewPod, Pod } from "@/utils/podUtils";
+import { toast } from "sonner";
 
 interface GpuOption {
   id: string;
@@ -76,10 +78,33 @@ const ClientPodDeploy = () => {
   };
 
   const handleStartDeploy = () => {
-    // Simulated deployment process
-    setTimeout(() => {
-      navigate("/client/pods");
-    }, 500);
+    // Crear el nuevo pod
+    const newPod = createNewPod(
+      podName,
+      template,
+      containerDiskSize,
+      volumeDiskSize,
+      selectedGpu,
+      ports
+    );
+    
+    // Guardar el nuevo pod en localStorage
+    const savedPods = localStorage.getItem('clientPods');
+    let updatedPods: Pod[] = [];
+    
+    if (savedPods) {
+      updatedPods = [...JSON.parse(savedPods), newPod];
+    } else {
+      updatedPods = [newPod];
+    }
+    
+    localStorage.setItem('clientPods', JSON.stringify(updatedPods));
+    
+    // Mostrar mensaje de éxito
+    toast.success(`Pod ${podName} desplegado correctamente`);
+    
+    // Redirigir a la página de pods
+    navigate("/client/pods");
   };
 
   // Calculate total cost

@@ -13,6 +13,8 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } fr
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { createNewPod, Pod } from "@/utils/podUtils";
+import { toast } from "sonner";
 
 interface GpuOption {
   id: string;
@@ -63,6 +65,7 @@ const AdminPodDeploy = () => {
   const [podName, setPodName] = useState("");
   const [ports, setPorts] = useState("8888");
   const [template, setTemplate] = useState("ubuntu");
+  const [userAssign, setUserAssign] = useState("admin@example.com");
   const navigate = useNavigate();
   const { user } = useAuth();
   
@@ -76,10 +79,34 @@ const AdminPodDeploy = () => {
   };
 
   const handleStartDeploy = () => {
-    // Simulated deployment process
-    setTimeout(() => {
-      navigate("/admin/pods");
-    }, 500);
+    // Crear el nuevo pod
+    const newPod = createNewPod(
+      podName,
+      template,
+      containerDiskSize,
+      volumeDiskSize,
+      selectedGpu,
+      ports,
+      userAssign
+    );
+    
+    // Guardar el nuevo pod en localStorage
+    const savedPods = localStorage.getItem('adminPods');
+    let updatedPods: Pod[] = [];
+    
+    if (savedPods) {
+      updatedPods = [...JSON.parse(savedPods), newPod];
+    } else {
+      updatedPods = [newPod];
+    }
+    
+    localStorage.setItem('adminPods', JSON.stringify(updatedPods));
+    
+    // Mostrar mensaje de éxito
+    toast.success(`Pod ${podName} desplegado correctamente para ${userAssign}`);
+    
+    // Redirigir a la página de pods
+    navigate("/admin/pods");
   };
 
   // Calculate total cost
@@ -172,6 +199,26 @@ const AdminPodDeploy = () => {
                           </FormControl>
                           <FormDescription>
                             Un nombre único para identificar tu pod
+                          </FormDescription>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="userAssign"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Asignar a Usuario</FormLabel>
+                          <FormControl>
+                            <Input 
+                              placeholder="usuario@example.com" 
+                              value={userAssign} 
+                              onChange={(e) => setUserAssign(e.target.value)} 
+                            />
+                          </FormControl>
+                          <FormDescription>
+                            Email del usuario al que se asignará este pod
                           </FormDescription>
                         </FormItem>
                       )}
@@ -308,6 +355,10 @@ const AdminPodDeploy = () => {
                     <span>Template</span>
                     <span className="capitalize">{template}</span>
                   </div>
+                  <div className="flex justify-between">
+                    <span>Usuario</span>
+                    <span>{userAssign}</span>
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -318,7 +369,7 @@ const AdminPodDeploy = () => {
                 className="w-full md:w-auto" 
                 size="lg" 
                 onClick={handleStartDeploy}
-                disabled={!podName.trim()}
+                disabled={!podName.trim() || !userAssign.trim()}
               >
                 <Server className="mr-2 h-4 w-4" />
                 Start Deploy
