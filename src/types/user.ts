@@ -8,4 +8,5 @@ export interface User {
   totalPods: number;
   balance: number;
   status: 'online' | 'offline';
+  role?: 'admin' | 'client';
 }
