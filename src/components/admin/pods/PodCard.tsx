@@ -160,8 +160,11 @@ const PodConnectDialog: React.FC<{ pod: Pod }> = ({ pod }) => {
         </DialogHeader>
         <div className="grid gap-4 py-4">
           {pod.ports.map((port) => (
-            <div key={port} className="flex justify-between items-center">
-              <div>Puerto {port}</div>
+            <div key={port.number} className="flex justify-between items-center">
+              <div className="flex flex-col">
+                <span className="font-medium">{port.service}</span>
+                <span className="text-sm text-muted-foreground">Puerto {port.number}</span>
+              </div>
               <Button variant="outline" disabled={pod.status !== "running"}>
                 <ExternalLink className="mr-2 h-4 w-4" />
                 Abrir

@@ -1,6 +1,11 @@
 
 import { toast } from "sonner";
 
+export interface PodPort {
+  number: number;
+  service: string;
+}
+
 export interface Pod {
   id: string;
   name: string;
@@ -9,7 +14,7 @@ export interface Pod {
   cpu: number;
   memory: string;
   gpu: number;
-  ports: number[];
+  ports: PodPort[];
   user?: string;
 }
 
@@ -23,7 +28,10 @@ export const initialClientPods: Pod[] = [
     cpu: 25,
     memory: "4.2GB / 8GB",
     gpu: 65,
-    ports: [8888, 7860],
+    ports: [
+      { number: 8888, service: "Jupyter Notebook" },
+      { number: 7860, service: "ComfyUI" }
+    ],
   },
   {
     id: "pod-2",
@@ -33,7 +41,10 @@ export const initialClientPods: Pod[] = [
     cpu: 0,
     memory: "0GB / 4GB",
     gpu: 0,
-    ports: [8888, 22],
+    ports: [
+      { number: 8888, service: "Jupyter Notebook" },
+      { number: 22, service: "SSH" }
+    ],
   },
 ];
 
@@ -47,7 +58,10 @@ export const initialAdminPods: Pod[] = [
     cpu: 25,
     memory: "4.2GB / 8GB",
     gpu: 65,
-    ports: [8888, 7860],
+    ports: [
+      { number: 8888, service: "Jupyter Notebook" },
+      { number: 7860, service: "ComfyUI" }
+    ],
     user: "admin@example.com",
   },
   {
@@ -58,7 +72,10 @@ export const initialAdminPods: Pod[] = [
     cpu: 0,
     memory: "0GB / 4GB",
     gpu: 0,
-    ports: [8888, 22],
+    ports: [
+      { number: 8888, service: "Jupyter Notebook" },
+      { number: 22, service: "SSH" }
+    ],
     user: "admin@example.com",
   },
   {
@@ -69,7 +86,10 @@ export const initialAdminPods: Pod[] = [
     cpu: 45,
     memory: "12GB / 16GB",
     gpu: 78,
-    ports: [8888, 6006],
+    ports: [
+      { number: 8888, service: "Jupyter Notebook" },
+      { number: 6006, service: "TensorBoard" }
+    ],
     user: "usuario1@example.com",
   },
   {
@@ -80,7 +100,9 @@ export const initialAdminPods: Pod[] = [
     cpu: 0,
     memory: "0GB / 4GB",
     gpu: 0,
-    ports: [7860],
+    ports: [
+      { number: 7860, service: "ComfyUI" }
+    ],
     user: "usuario2@example.com",
   },
 ];
@@ -95,7 +117,40 @@ export const createNewPod = (
   ports: string,
   user?: string
 ): Pod => {
-  const portsArray = ports.split(",").map(port => parseInt(port.trim())).filter(port => !isNaN(port));
+  const portsList = ports.split(",").map(port => port.trim()).filter(port => port !== "");
+  const portsArray: PodPort[] = [];
+  
+  portsList.forEach(portStr => {
+    const portNum = parseInt(portStr);
+    if (!isNaN(portNum)) {
+      let service = "Servicio";
+      
+      // Asignar nombres de servicio basados en puertos conocidos
+      switch (portNum) {
+        case 8888:
+          service = "Jupyter Notebook";
+          break;
+        case 7860:
+          service = "ComfyUI";
+          break;
+        case 6006:
+          service = "TensorBoard";
+          break;
+        case 22:
+          service = "SSH";
+          break;
+        default:
+          service = `Puerto ${portNum}`;
+      }
+      
+      // Si el template es específico, personalizar el nombre del servicio
+      if (template === "comfyui" && portNum === 7860) {
+        service = "ComfyUI";
+      }
+      
+      portsArray.push({ number: portNum, service });
+    }
+  });
   
   return {
     id: `pod-${Date.now()}`,
@@ -141,3 +196,4 @@ export const togglePodStatus = (pod: Pod): Pod => {
 export const deletePod = (podId: string, pods: Pod[]): Pod[] => {
   return pods.filter(pod => pod.id !== podId);
 };
+
