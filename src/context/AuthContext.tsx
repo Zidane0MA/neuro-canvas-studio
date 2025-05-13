@@ -1,15 +1,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
-type UserRole = "admin" | "client";
-
-interface User {
-  email: string;
-  name: string;
-  role: UserRole;
-  balance: number;
-}
+import { User } from "@/types/user";
 
 interface AuthContextType {
   user: User | null;
@@ -43,8 +35,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const login = (email: string) => {
     const newUser: User = 
       email === "lolerodiez@gmail.com" 
-        ? { email, name: "Admin", role: "admin", balance: Infinity } 
-        : { email, name: "Cliente", role: "client", balance: 10 };
+        ? { 
+            id: "admin-1",
+            email, 
+            name: "Admin", 
+            registrationDate: new Date().toLocaleDateString(),
+            activePods: 2,
+            totalPods: 5,
+            balance: Infinity,
+            status: 'online',
+            role: "admin" 
+          } 
+        : { 
+            id: "client-1",
+            email, 
+            name: "Cliente", 
+            registrationDate: new Date().toLocaleDateString(),
+            activePods: 1,
+            totalPods: 3,
+            balance: 10,
+            status: 'online',
+            role: "client" 
+          };
     
     setUser(newUser);
     localStorage.setItem("user", JSON.stringify(newUser));
