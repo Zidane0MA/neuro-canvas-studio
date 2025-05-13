@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { createNewPod, Pod } from "@/utils/podUtils";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface GpuOption {
   id: string;
@@ -65,6 +66,8 @@ const ClientPodDeploy = () => {
   const [podName, setPodName] = useState("");
   const [ports, setPorts] = useState("8888");
   const [template, setTemplate] = useState("ubuntu");
+  const [deploymentType, setDeploymentType] = useState("template"); // template o docker
+  const [dockerImage, setDockerImage] = useState("");
   const navigate = useNavigate();
   const { user } = useAuth();
   
@@ -81,7 +84,7 @@ const ClientPodDeploy = () => {
     // Crear el nuevo pod
     const newPod = createNewPod(
       podName,
-      template,
+      deploymentType === "template" ? template : dockerImage,
       containerDiskSize,
       volumeDiskSize,
       selectedGpu,
@@ -204,18 +207,49 @@ const ClientPodDeploy = () => {
                     />
                     
                     <div className="space-y-2">
-                      <Label>Template</Label>
-                      <RadioGroup value={template} onValueChange={setTemplate} className="flex flex-col space-y-1">
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="ubuntu" id="ubuntu" />
-                          <Label htmlFor="ubuntu">Ubuntu (por defecto)</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="comfyui" id="comfyui" />
-                          <Label htmlFor="comfyui">ComfyUI</Label>
-                        </div>
-                      </RadioGroup>
+                      <Label>Tipo de Despliegue</Label>
+                      <Select 
+                        value={deploymentType} 
+                        onValueChange={setDeploymentType}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecciona tipo de despliegue" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="template">Template</SelectItem>
+                          <SelectItem value="docker">Imagen Docker</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
+                    
+                    {deploymentType === "template" ? (
+                      <div className="space-y-2">
+                        <Label>Template</Label>
+                        <RadioGroup value={template} onValueChange={setTemplate} className="flex flex-col space-y-1">
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="ubuntu" id="ubuntu" />
+                            <Label htmlFor="ubuntu">Ubuntu (por defecto)</Label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <RadioGroupItem value="comfyui" id="comfyui" />
+                            <Label htmlFor="comfyui">ComfyUI</Label>
+                          </div>
+                        </RadioGroup>
+                      </div>
+                    ) : (
+                      <div className="space-y-2">
+                        <Label htmlFor="dockerImage">Imagen Docker</Label>
+                        <Input 
+                          id="dockerImage" 
+                          value={dockerImage} 
+                          onChange={(e) => setDockerImage(e.target.value)} 
+                          placeholder="ej: nvidia/cuda:11.4.2-base-ubuntu20.04"
+                        />
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Especifica una imagen Docker para usar en tu pod
+                        </p>
+                      </div>
+                    )}
                   
                     <div className="space-y-2">
                       <Label htmlFor="ports">Puertos (separados por comas)</Label>
@@ -337,9 +371,15 @@ const ClientPodDeploy = () => {
                     <span>{containerDiskSize + volumeDiskSize} GB</span>
                   </div>
                   <div className="flex justify-between">
-                    <span>Template</span>
-                    <span className="capitalize">{template}</span>
+                    <span>Tipo</span>
+                    <span className="capitalize">{deploymentType === "template" ? template : "Docker"}</span>
                   </div>
+                  {deploymentType === "docker" && (
+                    <div className="flex justify-between">
+                      <span>Imagen</span>
+                      <span className="text-sm break-all">{dockerImage}</span>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             </div>
@@ -350,7 +390,7 @@ const ClientPodDeploy = () => {
                 className="w-full md:w-auto" 
                 size="lg" 
                 onClick={handleStartDeploy}
-                disabled={!podName.trim() || !hasEnoughBalance}
+                disabled={!podName.trim() || !hasEnoughBalance || (deploymentType === "docker" && !dockerImage.trim())}
               >
                 <Server className="mr-2 h-4 w-4" />
                 Start Deploy
