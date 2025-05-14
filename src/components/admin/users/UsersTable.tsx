@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, UserX, Trash2 } from "lucide-react";
+import { Eye, UserX, Trash2, DollarSign } from "lucide-react";
 import { User } from "@/types/user";
 import { useIsMobile } from "@/hooks/use-mobile";
 
@@ -21,6 +21,7 @@ interface UsersTableProps {
   openUserDetail: (user: User) => void;
   openSuspendDialog: (user: User) => void;
   openDeleteDialog: (user: User) => void;
+  openSalaryDialog: (user: User) => void;
 }
 
 export const UsersTable = ({
@@ -29,7 +30,8 @@ export const UsersTable = ({
   loadMore,
   openUserDetail,
   openSuspendDialog,
-  openDeleteDialog
+  openDeleteDialog,
+  openSalaryDialog
 }: UsersTableProps) => {
   const isMobile = useIsMobile();
   
@@ -44,6 +46,7 @@ export const UsersTable = ({
               {!isMobile && <TableHead>Registro</TableHead>}
               <TableHead>Pods</TableHead>
               {!isMobile && <TableHead>Saldo</TableHead>}
+              {!isMobile && <TableHead>Salario</TableHead>}
               <TableHead>Estado</TableHead>
               <TableHead className="text-right">Acciones</TableHead>
             </TableRow>
@@ -56,6 +59,11 @@ export const UsersTable = ({
                 {!isMobile && <TableCell>{user.registrationDate}</TableCell>}
                 <TableCell>{user.activePods}/{user.totalPods}</TableCell>
                 {!isMobile && <TableCell>{user.balance.toFixed(2)} €</TableCell>}
+                {!isMobile && (
+                  <TableCell>
+                    {user.salary !== undefined ? `${user.salary.toFixed(2)} €` : 'No asignado'}
+                  </TableCell>
+                )}
                 <TableCell>
                   <Badge variant={user.status === 'online' ? 'default' : 'secondary'}>
                     {user.status === 'online' ? 'Online' : 'Offline'}
@@ -65,6 +73,9 @@ export const UsersTable = ({
                   <div className="flex justify-end gap-2">
                     <Button variant="ghost" size="icon" onClick={() => openUserDetail(user)}>
                       <Eye className="h-4 w-4" />
+                    </Button>
+                    <Button variant="ghost" size="icon" onClick={() => openSalaryDialog(user)}>
+                      <DollarSign className="h-4 w-4" />
                     </Button>
                     <Button variant="ghost" size="icon" onClick={() => openSuspendDialog(user)}>
                       <UserX className="h-4 w-4" />

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { DashboardLayout } from "@/components/dashboard/DashboardLayout";
 import { UsersSearch } from "@/components/admin/users/UsersSearch";
@@ -7,6 +6,7 @@ import { UserDetailDialog } from "@/components/admin/users/UserDetailDialog";
 import { UserActionDialog } from "@/components/admin/users/UserActionDialog";
 import { mockUsers, USERS_PER_PAGE } from "@/data/mockUsers";
 import { User } from "@/types/user";
+import { toast } from "sonner";
 
 const AdminUsers = () => {
   const [users, setUsers] = useState<User[]>(mockUsers);
@@ -14,7 +14,7 @@ const AdminUsers = () => {
   const [filterActivePods, setFilterActivePods] = useState(false);
   const [filterOnline, setFilterOnline] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
-  const [dialogType, setDialogType] = useState<'detail' | 'suspend' | 'delete' | null>(null);
+  const [dialogType, setDialogType] = useState<'detail' | 'suspend' | 'delete' | 'salary' | null>(null);
   const [visibleUsers, setVisibleUsers] = useState(USERS_PER_PAGE);
 
   const handleSearch = () => {
@@ -64,9 +64,24 @@ const AdminUsers = () => {
     setDialogType('delete');
   };
 
+  const openSalaryDialog = (user: User) => {
+    setSelectedUser(user);
+    setDialogType('salary');
+  };
+
   const closeDialog = () => {
     setDialogType(null);
     setSelectedUser(null);
+  };
+
+  const assignSalary = (userId: string, salary: number) => {
+    setUsers(prevUsers => 
+      prevUsers.map(user => 
+        user.id === userId ? { ...user, salary } : user
+      )
+    );
+    toast.success("Salario asignado correctamente");
+    closeDialog();
   };
 
   return (
@@ -94,6 +109,7 @@ const AdminUsers = () => {
         openUserDetail={openUserDetail}
         openSuspendDialog={openSuspendDialog}
         openDeleteDialog={openDeleteDialog}
+        openSalaryDialog={openSalaryDialog}
       />
 
       <UserDetailDialog 
@@ -120,6 +136,18 @@ const AdminUsers = () => {
         description="¿Estás seguro de que quieres eliminar a este usuario? Esta acción no se puede deshacer."
         actionLabel="Eliminar Usuario"
         onAction={closeDialog}
+      />
+
+      <UserActionDialog
+        user={selectedUser}
+        open={dialogType === 'salary'}
+        onOpenChange={() => dialogType === 'salary' && closeDialog()}
+        title="Asignar Salario"
+        description="Introduce el salario mensual para este usuario."
+        actionLabel="Asignar Salario"
+        isSalaryAction={true}
+        onSalaryAssign={assignSalary}
+        onAction={() => {}}
       />
     </DashboardLayout>
   );
